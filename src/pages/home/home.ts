@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-
+import { PesagemPage } from '../pesagem/pesagem';
 /**
  * Generated class for the HomePage page.
  *
@@ -41,6 +41,10 @@ export class HomePage {
   sair(){
       this.AuthServiceProvider.logout()
       this.navCtrl.push("login")
+  }
+
+  openPesagem(){
+    this.navCtrl.push(PesagemPage);
   }
 
 }
