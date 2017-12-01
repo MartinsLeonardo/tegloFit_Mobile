@@ -1,0 +1,53 @@
+<!--
+  Generated template for the CadastrarPesoPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+      <ion-title>Cadastrar Peso</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content style="text-align: center; font-size: 15px; font-weight: bold;" padding>
+    <ion-grid>
+        <ion-row>    
+          <ion-col>
+              <div *ngIf="!isOn">
+                  Para cadastrar um peso, favor ative seu Bluetooth
+                  <div padding>
+                      <button ion-button (click)="setEnabled()" full>Ativar</button>
+                  </div>
+              </div>
+              
+  
+              <div *ngIf="isOn">
+                <div *ngIf="scanning">Aguarde, localizando dispositivo(s) ...</div>
+                <div *ngIf="!scanning">
+                  <div padding>
+                    <button ion-button (click)="isEnabled()" full>Atualizar</button>
+                  </div>  
+                  <div *ngIf="list.length > 0">
+                      {{list.length}} dispositivo(s) encontrado(s) 
+                      <ion-list>
+                          <button ion-item *ngFor="let l of list">
+                              <b>{{l.name + ' - ' + l.address}}</b>
+                          </button>  
+                       </ion-list>  
+                  </div>
+                  <div *ngIf="list.length == 0">
+                    Nenhum dispositivo localizado!  
+                  </div>  
+                </div>
+              </div>
+          
+          
+            </ion-col>
+        </ion-row> 
+    </ion-grid>       
+</ion-content>

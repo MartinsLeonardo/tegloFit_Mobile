@@ -1,0 +1,9 @@
+baixar dependencia: ionic cordova platform add android
+
+gerar apk: ionic cordova build android 
+
+C:\Users\m4t3us\Desktop\Teglo_Fit\platforms\android\build\outputs\apk\android-debug.apk
+
+
+
+ionic cordova run browser - > executar bluethoot
