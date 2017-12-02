@@ -5,7 +5,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import {HttpModule, JsonpModule} from '@angular/http';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { PesagemPage } from '../pages/pesagem/pesagem';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 
 /*SERVIÇOS*/
 import { AuthGuardProvider } from '../providers/auth-guard/auth-guard';
@@ -27,6 +28,7 @@ import { HomePageModule } from '../pages/home/home.module';
 @NgModule({
   declarations: [
     MyApp,
+    PesagemPage,
   ],
   imports: [
     BrowserModule,
@@ -39,14 +41,16 @@ import { HomePageModule } from '../pages/home/home.module';
        }  
     ),
     LoginPageModule,
-    HomePageModule
+    HomePageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    PesagemPage,
   ],
   providers: [
     StatusBar,
+    BluetoothSerial,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthGuardProvider,
