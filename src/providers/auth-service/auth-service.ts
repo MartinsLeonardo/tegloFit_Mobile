@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import {Observable}     from 'rxjs/Observable';
+import { HTTP, HTTPResponse } from '@ionic-native/http';
 import { Storage } from '@ionic/storage';
-import 'rxjs/add/operator/map';
+import { ServiceBaseProvider } from '../service-base'
 
 /*
   Generated class for the AuthServiceProvider provider.
@@ -11,36 +10,16 @@ import 'rxjs/add/operator/map';
   for more info on providers and Angular DI.
 */
 @Injectable()
-export class AuthServiceProvider {
+export class AuthServiceProvider extends ServiceBaseProvider{
   public token: string;
 
 
-  constructor(public http: Http, public storage:Storage ) {
-     console.log('Hello AuthServiceProvider Provider');
-     /*var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-     this.token = currentUser && currentUser.token;*/
-     storage.get("currentUser").then((val)=>{
-         console.log(val)
-     })
-
-     //console.log(this.isSession)
+  constructor(public http: HTTP, public storage:Storage ) {
+      super(http)
   }
 
-
-   getUser(){
-        /*if (!this.loggedIn()) {
-            return null;
-        } else {
-            let user = JSON.parse(localStorage.getItem('currentUser'));
-            return user.username;
-             return this.storage.get('currentUser').then( (val)=>{
-                return val.username
-             } )
-        }*/
-        return null
-    }
-
-    getToken() {
+  
+    /*getToken() {
         if (!this.loggedIn()) {
             return null;
         } else {
@@ -50,54 +29,38 @@ export class AuthServiceProvider {
     }
 
     loggedIn():boolean {
-        /*this.storage.get('currentUser').then((val) => {
+        this.storage.get('currentUser').then((val) => {
             console.log('Your age is', val);
-        });*/
+        });
 
         //console.log( this.storage.keys() )
  
-       /*this.storage.keys().then( (value)=>{
+       this.storage.keys().then( (value)=>{
            console.log(value)
-       })*/
+       })
 
       return true
       
+    }*/
+
+    logon(usuario,senha):Promise<HTTPResponse> {
+        return  this.http.get(this.urlApi + "usuarios/?usuario="+usuario+"&&senha="+senha , {}, {})
     }
 
-    logon(username: string/*, password: string*/) {
-        /*let body = JSON.stringify({"email": username, "password": password});
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
+    getUser():Promise<Storage>{
+        return this.storage.get('currentUser')
+    }
 
-        //noinspection TypeScriptUnresolvedFunction
-        return this.http.post('https://fabrica.ulbra-to.br/sistema-eventos/backend/api/index.php/authentication', body, options)
-            .map((response: Response) => {
-                let token = response.json() && response.json().access_token;
-                if (token) {
-                    this.token = token;
-                    console.log(token)
-                    localStorage.setItem('currentUser', JSON.stringify({username: username, token: token}));
-                    return true;
-                } else {
-                    return false;
-                }
-            })
-            .catch(this.handleError);*/
-            this.storage.set('currentUser', {
-                username: username, 
-                nome: "Teste da Silva",
-                peso: 60,
-                rg: "1234",
-                cpf: "21312312",
-                rua: "Rua tal",
-                numero: 1,
-                bairro: "Tal",
-                estado: 'TO',
-                cidade: 'Palmas',
-                cep: '77777777',
-                email: 'teste@teste.com'
-            } );
 
+    setStorage(usuario){
+        this.storage.set('currentUser', {
+            id: usuario.id,
+            username: usuario.usuario, 
+            nome: usuario.nome,
+            dtNascimento: usuario.dtNascimento,
+            sexo: usuario.sexo,
+            email: usuario.email,
+        } )
     }
 
     logout(): void {
@@ -105,12 +68,5 @@ export class AuthServiceProvider {
         this.storage.remove("currentUser")
         
     }
-
-    /*private handleError(error: any) {
-        let errMsg = (error.message) ? error.message :
-            error.status ? `${error.status} - ${error.statusText}` : 'Server error';
-        console.error(errMsg);
-        return Observable.throw(errMsg);
-    }*/
 
 }

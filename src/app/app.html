@@ -1,7 +1,7 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" (ionOpen)="getUser()" swipeEnabled="false">
     <ion-header>
-      <ion-toolbar>
-        <ion-title>Menu</ion-title>
+      <ion-toolbar color="primary" style="text-align: center;">
+        <ion-title><ion-icon name="body" style="margin-right: 0px;"></ion-icon>egloFit</ion-title>
         <button right menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
@@ -9,18 +9,18 @@
     </ion-header>
 
     <ion-content>
-      <a menuClose (click)="alterarDadosCadastrais()"><img src="../assets/imgs/perfil.jpg" /></a>
-      <h6 style="text-align: center;">Bem-Vindo Allisson Mateus</h6>
-      <ion-list>
-        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-          {{p.title}}
-        </button>
-        <button menuClose ion-item (click)="sair()">
-            Sair
-        </button>
-      </ion-list>
-
-    </ion-content>
+        <a menuClose (click)="alterarDadosCadastrais()"><img src="assets/imgs/perfil.jpg"  style="width: 100%; height: 250px;"/></a>
+        <h6 style="text-align: center;">Olá {{usuario}}</h6>
+        <ion-list>
+          <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+              <ion-icon name="{{p.icon}}" style="margin-right: 2px;"></ion-icon>{{p.title}}
+          </button>
+          <button menuClose ion-item (click)="sair()">
+              <ion-icon name="close-circle" style="margin-right: 2px;"></ion-icon>Sair
+          </button>
+        </ion-list>
+  
+      </ion-content>
 </ion-menu>
 
 

@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { AuthGuardProvider } from '../../providers/auth-guard/auth-guard';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../../pages/home/home'
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -24,6 +25,11 @@ import { HomePage } from '../../pages/home/home'
 })
 export class LoginPage {
   @ViewChild(Nav) nav: Nav;
+
+  // Our childs for different charts
+ // We would be using these for canvas elements
+
+ 
   
   private form : FormGroup;  
    
@@ -33,11 +39,7 @@ export class LoginPage {
   }
 
 
-  ngOnInit() {
-     /*if( this.AuthGuard.canActivate() ){
-          this.navCtrl.push(HomePage);
-     }*/
-  }
+
      
 
   
@@ -49,53 +51,45 @@ export class LoginPage {
     });
   }
 
+
+ 
   logForm(){
    
-   
-    console.log(this.form.value)
-  
-    this.storage.get('usuario').then((val) => {
-        if(val.usuario == this.form.value.usuario && val.senha == this.form.value.senha){
-            this.AuthServiceProvider.logon(this.form.value.usuario)
-            //this.navCtrl.push("home")
-            this.app.getRootNav().setRoot(HomePage);
-        }else{
-            let alert = this.alertCtrl.create({
-              title: 'Ops!',
-              subTitle: "Usuário ou Senha incorreto.",
-              buttons: [
-                {
-                  text: 'Ok',
-                  role: 'Ok',
-                  handler: () =>{
-                    console.log("OK")
-                  }
-                },
-                {
-                  text: 'No',
-                  role: 'No',
-                  handler: () =>{
-                    console.log()
-                  }
-                }
-              ]
-            });
-            alert.present();
-        }
-        
-  });
-
-
+    this.AuthServiceProvider.logon(this.form.value.usuario ,  this.form.value.senha).then(val=>{
+            let ret = JSON.parse( val.data );
+            if(ret.length == 0){
+              let alert = this.alertCtrl.create({
+                title: 'Falha',
+                subTitle: 'Usuário ou Senha Inválido(s)',
+                buttons: ['OK']
+              });
+              alert.present();
+              this.form.value.usuario = this.form.value.senha = ""
+            }else{
+              this.AuthServiceProvider.setStorage(ret[0])
+              this.app.getRootNav().setRoot(HomePage);
+            }    
+      },error=>{
+        let alert = this.alertCtrl.create({
+          title: 'Falha',
+          subTitle: 'Falha na conexão com o banco!',
+          buttons: ['OK']
+        });
+        alert.present();
+      })
   }
 
-  cadastrar(){
-      this.storage.set('usuario', {usuario:"teste" , senha:"teste"});
+  openCadastrarUsuario(){
+    this.navCtrl.push("cadastrarUsuario");
   }
-
-
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
+
+
+
+
+
 
 }

@@ -15,13 +15,13 @@ export class AuthGuardProvider {
     constructor(private auth: AuthServiceProvider) {}
 
     canActivate() {
-        if(this.auth.loggedIn()) {
+        /*if(this.auth.loggedIn()) {
             //console.log("Entrou")
             return true;
         } else {
             //this.navCtrl.push(LoginPage);
             return false;
-        }
+        }*/
     }
 
 }

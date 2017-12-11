@@ -1,1 +1,4 @@
-bluthot serial
+bluetooth serial native-ionic
+http native-ionic
+gráficos http://www.discoversdk.com/blog/charts-and-graphs-in-ionic-2-integrating-data-visualization-with-different-libraries
+

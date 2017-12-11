@@ -1,17 +1,54 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="dark">
       <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
-      <ion-title>Principal</ion-title>
+      <ion-title>Histórico de Peso</ion-title>
     </ion-navbar>
 </ion-header>
 
   
-<!--
-<ion-content>
-    <button ion-button  (click)="teste()">Teste</button>
 
-     <button ion-button  (click)="sair()">Sair</button>
+<ion-content>
+    <ion-card>
+        <ion-card-header style="text-align: center;" *ngIf="historicos">
+            
+              <span *ngIf="historicos.length > 0">Seu histórico <b>{{nomeUsuario}}</b> em 2017</span>
+              <span *ngIf="historicos.length == 0"><b>{{nomeUsuario}}</b>, você não possui histórico</span>
+           
+        </ion-card-header>
+        <ion-card-content>
+          <canvas #lineCanvas ></canvas>
+        </ion-card-content>
+      </ion-card>
+      
+
+  <ion-grid>
+    <ion-row>    
+      <ion-col>
+          <div  *ngIf="historicos">
+              
+             
+              <hr>
+              <ion-searchbar  (ionInput)="getItems($event)" placeholder="Procurar"></ion-searchbar>
+              <div *ngIf="historicos.length > 0">
+                  <ion-list>
+                    <ion-item *ngFor="let h of historicos">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col col-10> {{ h.peso + 'KG em ' + h.dataHora.split(' ')[0] + ' às ' + h.dataHora.split(' ')[1] }}</ion-col>
+                                <ion-col col-2 style="text-align: right;"><ion-icon name="trash" style="color: red;" (click)="excluirPeso(h.id)"></ion-icon></ion-col>
+                              </ion-row>
+                          </ion-grid>    
+                        </ion-item>
+                  </ion-list>
+              </div> 
+              <div *ngIf="historicos.length == 0" style="text-align: center;">
+                Sem resultados da busca!
+                <!--<button ion-button full (click)="cadastrarPeso()"><ion-icon name="md-walk" style="margin-right: 2px;"></ion-icon>Cadastrar Peso</button>-->
+              </div>
+          </div>
+      </ion-col>
+    </ion-row> 
+  </ion-grid>       
 </ion-content>
--->

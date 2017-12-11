@@ -4,8 +4,9 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="dark">
       <button ion-button menuToggle>
         <ion-icon name="menu"></ion-icon>
       </button>
@@ -14,36 +15,71 @@
 </ion-header>
 
 
-<ion-content style="text-align: center; font-size: 15px; font-weight: bold;" padding>
-    <ion-grid>
+<ion-content style="text-align: center; font-size: 15px;" padding>
+    <ion-grid *ngIf="!scanning" style="margin-top: 5%;">
         <ion-row>    
           <ion-col>
               <div *ngIf="!isOn">
-                  Para cadastrar um peso, favor ative seu Bluetooth
-                  <div padding>
-                      <button ion-button (click)="setEnabled()" full>Ativar</button>
-                  </div>
+                  <ion-card>
+                        <div padding></div>  
+                        <ion-card-content>  
+                            Para cadastrar um peso, favor ative seu Bluetooth
+                            <button ion-button (click)="setEnabled()" full><ion-icon name="bluetooth" style="margin-right: 2px;"></ion-icon>Ligar</button>
+                        </ion-card-content>
+                        <div padding></div>
+                    </ion-card>     
               </div>
               
   
-              <div *ngIf="isOn">
-                <div *ngIf="scanning">Aguarde, localizando dispositivo(s) ...</div>
-                <div *ngIf="!scanning">
-                  <div padding>
-                    <button ion-button (click)="isEnabled()" full>Atualizar</button>
-                  </div>  
-                  <div *ngIf="list.length > 0">
-                      {{list.length}} dispositivo(s) encontrado(s) 
-                      <ion-list>
-                          <button ion-item *ngFor="let l of list">
-                              <b>{{l.name + ' - ' + l.address}}</b>
-                          </button>  
-                       </ion-list>  
-                  </div>
-                  <div *ngIf="list.length == 0">
-                    Nenhum dispositivo localizado!  
-                  </div>  
-                </div>
+              <div *ngIf="isOn && !isConnect && !connecting">
+                    <ion-card>
+                        <ion-card-content>
+                        <div padding>
+                            <button ion-button (click)="startScanning()" full><ion-icon name="search" style="margin-right: 2px;"></ion-icon>Buscar Dispositivo(s)</button>
+                        </div>  
+                        <div *ngIf="list.length > 0">
+                            {{list.length}} dispositivo(s) encontrado(s)
+                            <br> 
+                            <ion-list>
+                                <ion-item *ngFor="let l of list">
+                                        <ion-grid>
+                                                <ion-row>
+                                                    <ion-col col-10> {{ l.name }}</ion-col>
+                                                    <ion-col col-2 style="text-align: right;"><ion-icon name="send" style="color: green;" (click)="connectDevice(l)"></ion-icon></ion-col>
+                                                  </ion-row>
+                                        </ion-grid>    
+                                       
+                                </ion-item>  
+                            </ion-list>  
+                        </div>
+                        <div *ngIf="list.length == 0">
+                            Nenhum dispositivo localizado!  
+                        </div> 
+                        </ion-card-content>
+                    </ion-card>
+              </div>
+
+
+              <!--<div *ngIf="connecting">
+                  Aguarde, conectando ...
+              </div>-->
+
+              <div *ngIf="isOn && isConnect">
+
+                    <ion-card>
+                              <div padding></div> 
+                              <ion-card-header>
+                                Conectado à balança {{balanca}}
+                                <button ion-button (click)="disconectDevice()" full><ion-icon name="exit" style="margin-right: 2px;"></ion-icon>Desconectar</button>
+                              </ion-card-header>
+                              <hr>
+                              <ion-card-content>
+                                    Por favor, suba na balança para realizar a pesagem<button ion-button (click)="getDataDevice()" full><ion-icon name="md-walk" style="margin-right: 2px;"></ion-icon>Ok, realizar pesagem</button>
+                              </ion-card-content>
+                              <div padding></div>
+                    </ion-card>
+              
+                
               </div>
           
           

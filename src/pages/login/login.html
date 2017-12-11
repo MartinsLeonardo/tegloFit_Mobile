@@ -19,10 +19,10 @@
 <ion-content>
 
     
-        <ion-grid>
+        <ion-grid style="margin-top: 28%;">
             <ion-row>    
                 <ion-col>
-                    <h4 style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-align: center;">Teglo Fit (Adc Logo e Font Padrão)</h4>
+                    <h4 style="font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-align: center;"><ion-icon name="body" style="margin-right: 0px;"></ion-icon>egloFit</h4>
                 </ion-col>   
             </ion-row>    
             <ion-row center>
@@ -42,14 +42,13 @@
                             </div>
                         
                         </form>
-    
-                        <div padding>
-                            <button ion-button  (click)="cadastrar()">Armazenar</button>
-                        </div> 
+                        
+                        <div  style="text-align: center;">
+                            <a (click)="openCadastrarUsuario()"> Não possui usuário? Crie um agora mesmo...</a>
+                        </div>
                       </ion-col>
             </ion-row>
-      </ion-grid>         
-  
-    
+      </ion-grid>      
+      
     
 </ion-content>

@@ -1,0 +1,40 @@
+instalar json-server: npm install json-server 
+iniciar servidor dev: npm start
+documentação: https://github.com/typicode/json-server
+
+{
+      "dataHora": "07/09/2017 20:25:19",
+      "peso": "78.5",
+      "usuarioId": "1",
+      "id": 3
+    },
+	{
+      "dataHora": "07/09/2017 20:25:19",
+      "peso": "78.5",
+      "usuarioId": "1",
+      "id": 4
+    },
+	{
+      "dataHora": "07/09/2017 20:25:19",
+      "peso": "78.5",
+      "usuarioId": "1",
+      "id": 5
+    },
+	{
+      "dataHora": "07/09/2017 20:25:19",
+      "peso": "78.5",
+      "usuarioId": "1",
+      "id": 6
+    },
+	{
+      "dataHora": "07/09/2017 20:25:19",
+      "peso": "78.5",
+      "usuarioId": "1",
+      "id": 7
+    },
+	{
+      "dataHora": "07/09/2017 20:25:19",
+      "peso": "78.5",
+      "usuarioId": "1",
+      "id": 8
+    }
